@@ -1,0 +1,16 @@
+name: SafeHarvest
+version: ${project.version}
+description: Allows players to safely harvest WorldGuard protected farms
+author: redwall_hp
+main: io.github.redwallhp.safeharvest.SafeHarvest
+depend: [WorldGuard]
+
+permissions:
+  safeharvest.reload:
+    description: Reload the plugin configuration
+
+commands:
+  safeharvest-reload:
+    description: Reload the plugin configuration
+    usage: /safeharvest-reload
+    permission: safeharvest.reload

@@ -1,0 +1,10 @@
+# Allow safe harvesting in WorldGuard regions
+protected_harvest: true
+protected_harvest_with_hand: true
+
+# Map of tools that will allow safe harvesting and chance (percentage) of doubling drops
+tools:
+  diamond_hoe: 20
+  iron_hoe: 10
+  stone_hoe: 5
+  wood_hoe: 0

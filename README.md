@@ -11,7 +11,7 @@ SafeHarvest allows players to harvest crops in WorldGuard protected regions, aut
 
 * When harvesting sugar cane, the player cannot break the bottom block. Harvesting of sugar cane will only be allowed if it is on top of another cane block.
 
-* Safe harvesting of cocoa plants is not currently supported.
+* Cocoa plants are automatically restored to their first stage of growth when broken.
 
 * When configured, a tool such as a hoe can allow the safe harvesting behaviour even when a player is allowed to build in a region. The item's durability will be expended, and drops for Crops (not melons, pumpkins or cane) have a configurable chance of being buffed.
 

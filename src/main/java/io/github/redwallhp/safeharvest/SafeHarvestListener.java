@@ -8,12 +8,14 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.BlockState;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.material.CocoaPlant;
 import org.bukkit.material.Crops;
 
 import java.util.HashSet;
@@ -129,7 +131,8 @@ public class SafeHarvestListener implements Listener {
         List<Material> materials = Lists.newArrayList(
                 Material.SUGAR_CANE_BLOCK,
                 Material.MELON_BLOCK,
-                Material.PUMPKIN
+                Material.PUMPKIN,
+                Material.COCOA
         );
         boolean isCropInstance = block.getState().getData() instanceof Crops;
         return isCropInstance || materials.contains(block.getType());
@@ -209,6 +212,20 @@ public class SafeHarvestListener implements Listener {
                 block.breakNaturally(playerTool);
                 return 1;
             }
+        }
+
+        //handle cocoa plants, replacing and setting growth
+        else if (block.getType().equals(Material.COCOA)) {
+            expectedDrops.add(new ExpectedDrop(block.getLocation(), playerTool));
+            BlockFace facing = ((CocoaPlant) block.getState().getData()).getFacing();
+            block.breakNaturally(playerTool);
+            block.setType(Material.COCOA);
+            BlockState state = block.getState(); //getState() returns a clone, so it must be assigned
+            CocoaPlant plant = (CocoaPlant) state.getData();
+            plant.setFacingDirection(facing);
+            state.setData(plant);
+            state.update();
+            return 1;
         }
 
         return 0;

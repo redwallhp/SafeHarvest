@@ -169,12 +169,15 @@ public class SafeHarvestListener implements Listener {
 
         //handle carrot, potato, wheat, etc. by resetting growth
         if (block.getState().getData() instanceof Crops) {
-            Material type = block.getType();
-            expectedDrops.add(new ExpectedDrop(block.getLocation(), playerTool));
-            block.breakNaturally(playerTool);
-            block.setType(type);
-            block.setData(CropState.SEEDED.getData());
-            return 1;
+            Crops crops = (Crops) block.getState().getData();
+            if (crops.getState().equals(CropState.RIPE)) {
+                Material type = block.getType();
+                expectedDrops.add(new ExpectedDrop(block.getLocation(), playerTool));
+                block.breakNaturally(playerTool);
+                block.setType(type);
+                block.setData(CropState.SEEDED.getData());
+                return 1;
+            }
         }
 
         //handle sugar cane, naturally breaking top blocks but leaving the bottom one
@@ -216,16 +219,18 @@ public class SafeHarvestListener implements Listener {
 
         //handle cocoa plants, replacing and setting growth
         else if (block.getType().equals(Material.COCOA)) {
-            expectedDrops.add(new ExpectedDrop(block.getLocation(), playerTool));
-            BlockFace facing = ((CocoaPlant) block.getState().getData()).getFacing();
-            block.breakNaturally(playerTool);
-            block.setType(Material.COCOA);
-            BlockState state = block.getState(); //getState() returns a clone, so it must be assigned
-            CocoaPlant plant = (CocoaPlant) state.getData();
-            plant.setFacingDirection(facing);
-            state.setData(plant);
-            state.update();
-            return 1;
+            CocoaPlant oldPlant = (CocoaPlant) block.getState().getData();
+            if (oldPlant.getSize().equals(CocoaPlant.CocoaPlantSize.LARGE)) {
+                expectedDrops.add(new ExpectedDrop(block.getLocation(), playerTool));
+                block.breakNaturally(playerTool);
+                block.setType(Material.COCOA);
+                BlockState state = block.getState(); //getState() returns a clone, so it must be assigned
+                CocoaPlant plant = (CocoaPlant) state.getData();
+                plant.setFacingDirection(oldPlant.getFacing());
+                state.setData(plant);
+                state.update();
+                return 1;
+            }
         }
 
         return 0;

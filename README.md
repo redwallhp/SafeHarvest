@@ -2,6 +2,8 @@
 
 SafeHarvest allows players to harvest crops in WorldGuard protected regions, automatically ensuring that the crops are replanted. It can also (optionally) allow the auto-replant behaviour to be used if a player harvests crops with a specific tool such as a hoe, with configurable chances for the drops to be multiplied.
 
+![GIF](http://i.imgur.com/hwc3ocA.gif)
+
 
 ##Behaviour
 

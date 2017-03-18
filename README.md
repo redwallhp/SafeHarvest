@@ -1,10 +1,11 @@
-#SafeHarvest
+# SafeHarvest
 
 SafeHarvest allows players to harvest crops in WorldGuard protected regions, automatically ensuring that the crops are replanted. It can also (optionally) allow the auto-replant behaviour to be used if a player harvests crops with a specific tool such as a hoe, with configurable chances for the drops to be multiplied.
 
 Video of it in action: http://i.imgur.com/hwc3ocA.gifv
 
-##Behaviour
+
+## Behaviour
 
 * When harvesting protected Crops (wheat, carrot, potatoes, etc.), the drop will be reduced by one and the block will be replanted.
 
@@ -17,7 +18,7 @@ Video of it in action: http://i.imgur.com/hwc3ocA.gifv
 * When configured, a tool such as a hoe can allow the safe harvesting behaviour even when a player is allowed to build in a region. The item's durability will be expended, and drops for Crops (not melons, pumpkins or cane) have a configurable chance of being buffed.
 
 
-##Configuration
+## Configuration
 
 ### WorldGuard Protected Harvesting
 ```
@@ -27,7 +28,7 @@ protected_harvest_with_hand: true
 ```
 When `protected_harvest` is set to true, players can harvest in WorldGuard regions where they would not otherwise have build permissions. When `protected_harvest_with_hand` is set, they can use their bare hand instead of needing a tool.
 
-###Tools
+### Tools
 ```
 # Map of tools that will allow safe harvesting and chance (percentage) of doubling drops
 tools:
@@ -37,3 +38,13 @@ tools:
   wood_hoe: 0
 ```
 The `tools` block contains a mapping of Bukkit Material names that will be allowed to trigger safe harvesting outside of a WorldGuard region, along with a percentage (integer, 0-100) for an individual ItemStack's quantity to double. (Items drops in stacks of one when a block is broken.) Setting the key to an empty value with `tools: []` will disable this feature.
+
+
+## WorldGuard Flags
+
+SafeHarvest includes its own WorldGuard flag to control its behaviour. If you set `safe-harvest` to `deny` on a region, no safe harvesting behaviour will be applied within its boundaries. This may be useful for protecting cosmetic usage of crop materials that fall within edge cases SafeHarvest doesn't cover.
+
+
+## Installation
+
+For tools to work for players who are not region members, the `use` or `interact` flag in WorldGuard must be set to `allow` for a region. For best results, set this in the `__global__` pseudo-region that all regions in the world inherit. Regions can still set this to `deny` on a case by case basis.

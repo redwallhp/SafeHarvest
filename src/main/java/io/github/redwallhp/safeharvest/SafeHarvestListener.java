@@ -43,6 +43,7 @@ public class SafeHarvestListener implements Listener {
     public void onBlockBreak(BlockBreakEvent event) {
 
         if (!isHarvestable(event.getBlock())) return;
+        if (plugin.getFlagHandler().isDisabledInRegion(event.getPlayer(), event.getBlock())) return;
 
         boolean canBuild = WGBukkit.getPlugin().canBuild(event.getPlayer(), event.getBlock());
         ItemStack playerTool = event.getPlayer().getInventory().getItemInMainHand();

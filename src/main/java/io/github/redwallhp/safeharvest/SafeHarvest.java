@@ -15,6 +15,7 @@ public class SafeHarvest extends JavaPlugin {
 
 
     private Map<Material, Integer> tools;
+    private WGFlagHandler flagHandler;
 
 
     @Override
@@ -22,6 +23,12 @@ public class SafeHarvest extends JavaPlugin {
         tools = new HashMap<Material, Integer>();
         loadConfig();
         new SafeHarvestListener(this);
+    }
+
+
+    @Override
+    public void onLoad() {
+        flagHandler = new WGFlagHandler(this);
     }
 
 
@@ -41,6 +48,11 @@ public class SafeHarvest extends JavaPlugin {
 
     public Map<Material, Integer> getTools() {
         return tools;
+    }
+
+
+    public WGFlagHandler getFlagHandler() {
+        return flagHandler;
     }
 
 
